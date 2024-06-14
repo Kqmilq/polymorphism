@@ -1,11 +1,13 @@
 #include <iostream>
 #include <cmath> // Dla stałej M_PI
-
+#include "math.h"
 // Abstrakcyjna klasa Figure
 class Figure {
 public:
     // Czysta wirtualna metoda area()
     virtual double area() const = 0;
+
+    virtual double permiter() const = 0;
 
     // Czysta wirtualna metoda show()
     virtual void show() const = 0;
@@ -26,10 +28,14 @@ public:
     double area() const override {
         return M_PI * radius * radius;
     }
+    double permiter() const override{
+        return radius * M_PI * 2;
+    }
 
     // Implementacja metody show()
     void show() const override {
-        std::cout << "Circle with radius: " << radius << " and area: " << area() << std::endl;
+        std::cout << "Circle with radius: " << radius << " and area: " << area() << " and permiter: " << permiter()
+        <<std::endl;
     }
 };
 class Triangle : public Figure {
@@ -41,10 +47,15 @@ public:
     double area() const override {
         return boka * bokb /2;
     }
+    double permiter() const override{
+        return boka + bokb + sqrt((boka*boka)+(bokb*bokb));
+    }
+
     void show() const override {
-        std::cout << "Triangle with first side: " << boka << ", second side: " << bokb << " and area: " << area()
+        std::cout << "Triangle with first side: " << boka << ", second side: " << bokb << " and area: " << area() << " and permiter: " << permiter()
                   << std::endl;
     }
+
 };
 
 // Klasa Rectangle dziedzicząca po Figure
@@ -59,10 +70,13 @@ public:
     double area() const override {
         return width * height;
     }
+    double permiter() const override{
+        return (width + height) * 2;
+    }
 
     // Implementacja metody show()
     void show() const override {
-        std::cout << "Rectangle with width: " << width << ", height: " << height << " and area: " << area()
+        std::cout << "Rectangle with width: " << width << ", height: " << height << " and area: " << area() << " and permiter: " << permiter()
                   << std::endl;
     }
 };
